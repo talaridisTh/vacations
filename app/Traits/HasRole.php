@@ -8,14 +8,14 @@ trait HasRole {
         return $this->role;
     }
 
-    protected function scopeGetAdmin()
+    public function isAdmin()
     {
-        return "admin";
+        return $this->role === self::ROLE["admin"];
     }
 
-    protected function scopeGetEmployee()
+    public function isEmployee()
     {
-        return "employee";
+        return $this->role === self::ROLE["employee"];
     }
 
 }

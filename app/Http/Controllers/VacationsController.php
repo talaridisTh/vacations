@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VacationRequest;
 use App\Models\Vacation;
 use Illuminate\Http\Request;
 
@@ -15,11 +16,14 @@ class VacationsController extends Controller {
     public function create()
     {
         //
+        return inertia("Vacations/Create");
     }
 
-    public function store(Request $request)
+    public function store(VacationRequest $request)
     {
-        //
+        $request->store();
+
+        return redirect(route('dashboard'))->with('success', "Vacation successful");
     }
 
     public function show(Vacation $vacation)

@@ -14,17 +14,15 @@ class VacationFactory extends Factory {
     public function definition()
     {
 
-
-
-
         $start = $this->faker->dateTimeBetween('now', '+1 years');
-        $end =$this->faker->dateTimeBetween($start, $start->format('Y-m-d').' +20 days');;
+        $end = $this->faker->dateTimeBetween($start, $start->format('Y-m-d') . ' +20 days');;
 
         return [
             'vacation_start' => $start,
-            'vacation_end' =>$end,
+            'vacation_end' => $end,
             'reason' => $this->faker->sentence,
-            'status' => $this->faker->randomElement(["rejected", "approved","pending"]),
+            'status' => $this->faker->randomElement(["rejected", "approved", "pending"]),
+            "created_at" => $start,
         ];
     }
 

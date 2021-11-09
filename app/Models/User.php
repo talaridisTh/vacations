@@ -44,9 +44,15 @@ class User extends Authenticatable {
         'email_verified_at' => 'datetime',
     ];
 
+    public const  ROLE = [
+        'employee' => "employee",
+        'admin' => "admin",
+    ];
+
     public function vacations()
     {
-        return $this->hasMany(Vacation::class);
+        return $this->hasMany(Vacation::class)->orderBy("created_at","desc");
     }
+
 
 }

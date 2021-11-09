@@ -1,33 +1,69 @@
 <template>
-    <Head title="Dashboard" />
+   <section class="container mx-auto">
 
-    <BreezeAuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
-            </h2>
-        </template>
+	  <div class="space-y-2 mb-4 mt-4">
+		 <div class="flex justify-end w-full">
+			<Link :href="route('vacations.create')">
+			   <ButtonDefault colors="bg-blue-400 text-white">Create</ButtonDefault>
+			</Link>
+		 </div>
+	  </div>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        You're logged in!
-                    </div>
-                </div>
-            </div>
-        </div>
-    </BreezeAuthenticatedLayout>
+	  <SectionCard>
+		 <template v-slot:content>
+			<TableComponent>
+			   <TableHead>
+				  <TableTr>
+					 <TableTh>Date Submitted</TableTh>
+					 <TableTh>Dates requested</TableTh>
+					 <TableTh>Days requested</TableTh>
+					 <TableTh>Status</TableTh>
+				  </TableTr>
+			   </TableHead>
+
+			   <TableBody>
+				  <TableTr v-for="(vacation, index) in vacations.data"
+						   :key="vacation.id"
+						   :index="index">
+					 <TableTd>{{ vacation.created_format }}</TableTd>
+					 <TableTd>{{ vacation.date_request }}</TableTd>
+					 <TableTd>{{ vacation.days }}</TableTd>
+					 <TableTd>{{ vacation.status }}</TableTd>
+				  </TableTr>
+			   </TableBody>
+			</TableComponent>
+		 </template>
+	  </SectionCard>
+	  <Pagination class="mt-6" :links="vacations.links" />
+   </section>
+
+
 </template>
-
 <script>
-import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
-import { Head } from '@inertiajs/inertia-vue3';
+import Front from "@/Layouts/Authenticated";
 
-export default {
-    components: {
-        BreezeAuthenticatedLayout,
-        Head,
-    },
-}
+export default {layout: Front}
 </script>
+
+<script setup>
+import {Link} from "@inertiajs/inertia-vue3";
+import SectionCard from "@/Components/Sections/SectionCard";
+import TableComponent from "@/Components/Table/TableComponent";
+import TableHead from "@/Components/Table/TableHead";
+import TableTr from "@/Components/Table/TableTr";
+import TableTh from "@/Components/Table/TableTh";
+import TableBody from "@/Components/Table/TableBody";
+import TableTd from "@/Components/Table/TableTd";
+import ButtonDefault from "@/Components/Elements/Buttons/ButtonDefault";
+import Pagination from "@/Components/Pagination";
+
+defineProps({
+   "vacations": Object
+})
+
+
+</script>
+
+<style scoped>
+
+</style>
