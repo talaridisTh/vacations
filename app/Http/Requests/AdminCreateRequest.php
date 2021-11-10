@@ -10,6 +10,10 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 class AdminCreateRequest extends FormRequest {
 
+    /**
+     * Rules validation
+     * @return string[]
+     */
     public function rules(): array
     {
         return [
@@ -20,9 +24,12 @@ class AdminCreateRequest extends FormRequest {
         ];
     }
 
-    public function store()
+    /**
+     * Create a user
+     * @return mixed
+     */
+    public function store(): mixed
     {
-
 
         return User::create([
             "created_by" => auth()->id(),
@@ -36,6 +43,9 @@ class AdminCreateRequest extends FormRequest {
 
     }
 
+    /**
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;

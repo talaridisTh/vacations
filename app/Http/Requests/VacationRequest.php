@@ -7,6 +7,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class VacationRequest extends FormRequest {
 
+    /**
+     * @return string[]
+     */
     public function rules(): array
     {
         return [
@@ -16,7 +19,10 @@ class VacationRequest extends FormRequest {
         ];
     }
 
-    public function store()
+    /**
+     * @return mixed
+     */
+    public function store(): mixed
     {
         $this->merge(["user_id" => auth()->id()]);
 

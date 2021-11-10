@@ -45,27 +45,44 @@ class User extends Authenticatable {
         'admin' => "admin",
     ];
 
-    public function getFullnameAttribute()
+    /**
+     * Get full name of a user
+     * @return string
+     */
+    public function getFullnameAttribute(): string
     {
         return $this->firstname . " " . $this->lastname;
     }
 
-    public function vacations()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function vacations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Vacation::class)->orderBy("created_at", "desc");
     }
 
-    public function supervisor()
+    /**
+     * Get supervisor of admin
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function supervisor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function isEmployer()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function isEmployer(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(User::class, 'created_by');
     }
 
-    public function getRouteKeyName()
+    /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }

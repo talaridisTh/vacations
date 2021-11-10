@@ -9,15 +9,19 @@ use Illuminate\Http\Request;
 
 class IsAdminMiddleware {
 
-    public function handle(Request $request, Closure $next)
+    /**
+     * Middleware for admin
+     * @param Request $request
+     * @param Closure $next
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
+     */
+    public function handle(Request $request, Closure $next): mixed
     {
         if (Auth::user() && Auth::user()->isAdmin() == true) {
             return $next($request);
         }
 
-
         return redirect(RouteServiceProvider::HOME);
-
     }
 
 }

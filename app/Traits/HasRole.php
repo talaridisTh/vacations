@@ -3,17 +3,28 @@
 namespace App\Traits;
 trait HasRole {
 
-    protected function getRolesAttribute()
+    /**
+     * @return mixed
+     */
+    protected function getRolesAttribute(): mixed
     {
         return $this->role;
     }
 
-    public function isAdmin()
+    /**
+     * Check if user is admin
+     * @return bool
+     */
+    public function isAdmin(): bool
     {
         return $this->role === self::ROLE["admin"];
     }
 
-    public function isEmployee()
+    /**
+     * Check if user is employee
+     * @return bool
+     */
+    public function isEmployee(): bool
     {
         return $this->role === self::ROLE["employee"];
     }

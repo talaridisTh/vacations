@@ -12,6 +12,7 @@
 	  <SectionCard>
 		 <template v-slot:content>
 			<TableComponent>
+
 			   <TableHead>
 				  <TableTr>
 					 <TableTh>Date Submitted</TableTh>
@@ -31,6 +32,7 @@
 					 <TableTd>{{ vacation.status }}</TableTd>
 				  </TableTr>
 			   </TableBody>
+
 			</TableComponent>
 		 </template>
 	  </SectionCard>

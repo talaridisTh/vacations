@@ -2,7 +2,6 @@
    <section class="container mx-auto">
 	  <Form @submit="submit">
 
-
 		 <Spacer>
 
 			<FormComponent>
@@ -34,6 +33,7 @@
 				  <FormError v-if="errors.reason">{{ errors.reason }}</FormError>
 			   </div>
 			</FormComponent>
+
 		 </Spacer>
 
 		 <div class="pt-5">

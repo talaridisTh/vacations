@@ -9,7 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class IsEmployeeMiddleware {
 
-    public function handle(Request $request, Closure $next)
+    /**
+     * Middleware for Employee
+     * @param Request $request
+     * @param Closure $next
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
+     */
+    protected function handle(Request $request, Closure $next)
     {
         if (Auth::user() && Auth::user()->isEmployee() == true) {
             return $next($request);

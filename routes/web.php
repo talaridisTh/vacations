@@ -24,15 +24,18 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
     ]);
 });
+
 Route::get('/vacations/verify/{vacation}/{choice}', [VacationsController::class, 'updateConfirm'])->name('verify.confirm');
+
 Route::group(['middleware' => ["isAdmin"]], function () {
     Route::resource('/admin', AdminController::class);
-
 });
+
 Route::group(['middleware' => ["isEmployee"]], function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
     Route::resource('/vacations', VacationsController::class,)->middleware('auth');
 
 });
+
 require __DIR__ . '/auth.php';
 //

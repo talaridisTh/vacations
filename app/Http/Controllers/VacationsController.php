@@ -12,13 +12,21 @@ use Illuminate\Support\Facades\Mail;
 
 class VacationsController extends Controller {
 
-    public function create()
+    /**
+     * show page of create sVacation
+     * @return \Inertia\Response|\Inertia\ResponseFactory
+     */
+    public function create(): \Inertia\Response|\Inertia\ResponseFactory
     {
-        //
         return inertia("Vacations/Create");
     }
 
-    public function store(VacationRequest $request)
+    /**
+     *Create a vacation
+     * @param VacationRequest $request
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
+     */
+    public function store(VacationRequest $request): \Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
         $vacation = $request->store();
         $this->sendAdmin($vacation);
@@ -26,7 +34,13 @@ class VacationsController extends Controller {
         return redirect(route('dashboard'))->with('success', "Vacation successful");
     }
 
-    public function updateConfirm(Vacation $vacation, $choice)
+    /**
+     * Update status a send email
+     * @param Vacation $vacation
+     * @param $choice
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateConfirm(Vacation $vacation, $choice): \Illuminate\Http\RedirectResponse
     {
         $vacation->update(["status" => $choice]);
         $this->sendEmployee($vacation);
@@ -35,6 +49,7 @@ class VacationsController extends Controller {
     }
 
     /**
+     * Send email to admin
      * @param Vacation $vacation
      */
     private function sendAdmin(Vacation $vacation): void
@@ -46,6 +61,7 @@ class VacationsController extends Controller {
     }
 
     /**
+     * Send email to employee
      * @param Vacation $vacation
      */
     private function sendEmployee(Vacation $vacation): void

@@ -11,7 +11,9 @@
 
 	  <SectionCard>
 		 <template v-slot:content>
+
 			<TableComponent>
+
 			   <TableHead>
 				  <TableTr>
 					 <TableTh>Firstname</TableTh>
@@ -33,7 +35,9 @@
 					 </Link>
 				  </TableTr>
 			   </TableBody>
+
 			</TableComponent>
+
 		 </template>
 	  </SectionCard>
 	  <Pagination class="mt-6" :links="$page.props.auth.employers.links" />

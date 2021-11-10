@@ -12,20 +12,27 @@ class ConfirmMail extends Mailable implements ShouldQueue {
 
     use Queueable, SerializesModels;
 
-    protected $vacation;
+    /**
+     * @var Vacation
+     */
+    protected Vacation $vacation;
 
+    /**
+     * @param Vacation $vacation
+     */
     public function __construct(Vacation $vacation)
     {
         $this->vacation = $vacation->load("employee");
     }
 
-    public function build()
+    /**
+     * @return ConfirmMail
+     */
+    public function build(): ConfirmMail
     {
         return $this->from($this->vacation->employee->supervisor->email)
             ->view('emails.confirm',
-                [
-                    "vacation" => $this->vacation,
-                ]);
+                ["vacation" => $this->vacation]);
     }
 
 }

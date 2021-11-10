@@ -10,9 +10,11 @@ use phpDocumentor\Reflection\Types\This;
 
 class AdminUpdateRequest extends FormRequest {
 
+    /**
+     * @return string[]
+     */
     public function rules(): array
     {
-
         return [
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -22,9 +24,11 @@ class AdminUpdateRequest extends FormRequest {
 
     }
 
+    /**
+     * @param $user
+     */
     public function update($user)
     {
-
         $user = User::whereSlug($user)
             ->first()
             ->update([

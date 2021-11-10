@@ -16,10 +16,22 @@ class VacationMail extends Mailable implements ShouldQueue {
 
     use Queueable, SerializesModels;
 
-    protected $vacation;
-    protected $approve;
-    protected $reject;
+    /**
+     * @var Vacation
+     */
+    protected Vacation $vacation;
+    /**
+     * @var string
+     */
+    protected string $approve;
+    /**
+     * @var string
+     */
+    protected string $reject;
 
+    /**
+     * @param Vacation $vacation
+     */
     public function __construct(Vacation $vacation)
     {
         $this->vacation = $vacation->load("employee");
@@ -28,7 +40,7 @@ class VacationMail extends Mailable implements ShouldQueue {
 
     }
 
-    public function build()
+    public function build(): VacationMail
     {
         return $this
             ->from($this->vacation->employee->email)

@@ -8,32 +8,56 @@ use App\Models\User;
 
 class AdminController extends Controller {
 
-    public function index()
+    /**
+     * Get all user of supervisor
+     * @return \Inertia\Response|\Inertia\ResponseFactory
+     */
+    public function index(): \Inertia\Response|\Inertia\ResponseFactory
     {
         return inertia("AdminPanel");
     }
 
-    public function create()
+    /**
+     * Create user
+     * @return \Inertia\Response|\Inertia\ResponseFactory
+     */
+    public function create(): \Inertia\Response|\Inertia\ResponseFactory
     {
         return inertia("Admin/Create");
     }
 
-    public function edit($user)
+    /**
+     * Show edit page of a user
+     * @param $user
+     * @return \Inertia\Response|\Inertia\ResponseFactory
+     */
+    public function edit($user): \Inertia\Response|\Inertia\ResponseFactory
     {
-
         return inertia("Admin/Edit", [
             "user" => User::whereSlug($user)->first(),
         ]);
     }
 
-    public function store(AdminCreateRequest $request)
+    /**
+     *
+     * Create a user
+     * @param AdminCreateRequest $request
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
+     */
+    public function store(AdminCreateRequest $request): \Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
         $request->store();
 
         return redirect(route("admin.index"))->with('success', 'User created.');
     }
 
-    public function update($user, AdminUpdateRequest $request)
+    /**
+     * Update a user
+     * @param $user
+     * @param AdminUpdateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update($user, AdminUpdateRequest $request): \Illuminate\Http\RedirectResponse
     {
         $request->update($user);
 
