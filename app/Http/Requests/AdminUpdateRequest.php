@@ -25,19 +25,18 @@ class AdminUpdateRequest extends FormRequest {
     public function update($user)
     {
 
-        $user = User::whereSlug($user)->first();
-        $user->update([
-            "created_by" => auth()->id(),
-            'firstname' => $this->firstname,
-            'lastname' => $this->lastname,
-            'email' => $this->email,
-            'role' => $this->role,
-        ]);
+        $user = User::whereSlug($user)
+            ->first()
+            ->update([
+                "created_by" => auth()->id(),
+                'firstname' => $this->firstname,
+                'lastname' => $this->lastname,
+                'email' => $this->email,
+                'role' => $this->role,
+            ]);
         if ($this->password) {
             $user->update(["password" => Hash::make($this->password)]);
         }
-
-        return redirect()->back();
 
     }
 

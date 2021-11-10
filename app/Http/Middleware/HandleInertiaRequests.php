@@ -2,11 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
-class HandleInertiaRequests extends Middleware
-{
+class HandleInertiaRequests extends Middleware {
+
     /**
      * The root template that is loaded on the first page visit.
      *
@@ -17,7 +18,7 @@ class HandleInertiaRequests extends Middleware
     /**
      * Determine the current asset version.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return string|null
      */
     public function version(Request $request)
@@ -28,17 +29,19 @@ class HandleInertiaRequests extends Middleware
     /**
      * Define the props that are shared by default.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function share(Request $request)
     {
         return array_merge(parent::share($request), [
             'auth' => [
+                "employers" => auth()->user()->isEmployer()?->orderBy("updated_at", "desc")->paginate(10),
                 'user' => $request->user(),
                 'isAdmin' => $request->user()?->isAdmin(),
                 'isEmployee' => $request->user()?->isEmployee(),
             ],
+            "roles" => User::ROLE,
             'flash' => function () use ($request) {
                 return [
                     'success' => $request->session()->get('success'),
@@ -47,4 +50,5 @@ class HandleInertiaRequests extends Middleware
             },
         ]);
     }
+
 }

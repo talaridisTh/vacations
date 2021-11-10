@@ -22,7 +22,7 @@
 			   </TableHead>
 
 			   <TableBody>
-				  <TableTr v-for="(employer, index) in employers.data"
+				  <TableTr v-for="(employer, index) in $page.props.auth.employers.data"
 						   :key="employer.id"
 						   :index="index" class="hover:bg-gray-300">
 					 <Link :href="route('admin.edit',employer.slug)" class="contents ">
@@ -36,7 +36,7 @@
 			</TableComponent>
 		 </template>
 	  </SectionCard>
-	  <Pagination class="mt-6" :links="employers.links" />
+	  <Pagination class="mt-6" :links="$page.props.auth.employers.links" />
    </section>
 </template>
 <script>
@@ -57,9 +57,8 @@ import TableTd from "@/Components/Table/TableTd";
 import ButtonDefault from "@/Components/Elements/Buttons/ButtonDefault";
 import Pagination from "@/Components/Pagination";
 
-defineProps({
-   "employers": Object
-})
+
+
 
 </script>
 

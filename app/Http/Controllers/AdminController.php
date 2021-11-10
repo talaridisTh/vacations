@@ -10,45 +10,34 @@ class AdminController extends Controller {
 
     public function index()
     {
-
-        return inertia("AdminPanel", [
-            "employers" => auth()->user()->isEmployer()->orderBy("updated_at", "desc")->paginate(10),
-        ]);
+        return inertia("AdminPanel");
     }
 
     public function create()
     {
-
-        return inertia("Admin/Create", [
-            "roles" => User::ROLE,
-        ]);
-
+        return inertia("Admin/Create");
     }
 
-    public function edit( $user)
+    public function edit($user)
     {
 
         return inertia("Admin/Edit", [
-            "roles" => User::ROLE,
             "user" => User::whereSlug($user)->first(),
         ]);
     }
 
     public function store(AdminCreateRequest $request)
     {
-
         $request->store();
 
-        return $this->index();
-
+        return redirect(route("admin.index"))->with('success', 'User created.');
     }
+
     public function update($user, AdminUpdateRequest $request)
     {
-
         $request->update($user);
 
-        return $this->index();
-
+        return redirect()->back()->with('success', 'User updated.');
     }
 
 }

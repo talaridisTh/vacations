@@ -37,7 +37,7 @@
 			   <FormLabel>Role</FormLabel>
 			   <div class="flex flex-col">
 				  <select v-model="form.role">
-					 <option :value="index"  v-for="(role,index)  in roles" :key="role.index" >
+					 <option :value="index"  v-for="(role,index)  in $page.props.roles" :key="role.index" >
 						{{ capitalize(role) }}
 					 </option>
 				  </select>
@@ -76,9 +76,9 @@
 </template>
 
 <script>
-import Front from "@/Layouts/Authenticated";
+import Admin from "@/Layouts/Admin";
 
-export default {layout: Front}
+export default {layout: Admin}
 </script>
 
 <script setup>
@@ -86,8 +86,6 @@ import Form from "@/Components/Forms/Form";
 import Spacer from "@/Components/Forms/Spacer";
 import FormComponent from "@/Components/Forms/FormComponent";
 import FormLabel from "@/Components/Forms/InputGroups/FormLabel";
-
-;
 import FormError from "@/Components/Forms/FormError";
 import {reactive} from "vue";
 import ButtonDefault from "@/Components/Elements/Buttons/ButtonDefault";
@@ -97,7 +95,6 @@ import FormInput from "@/Components/Forms/InputGroups/FormInput";
 
 const props = defineProps({
    "user": Object,
-   "roles": Array,
    "errors": Object
 })
 
