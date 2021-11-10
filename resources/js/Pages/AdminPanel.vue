@@ -3,8 +3,8 @@
 
 	  <div class="space-y-2 mb-4 mt-4">
 		 <div class="flex justify-end w-full">
-			<Link :href="route('vacations.create')">
-			   <ButtonDefault colors="bg-blue-400 text-white">Submit request</ButtonDefault>
+			<Link :href="route('admin.create')">
+			   <ButtonDefault colors="bg-blue-400 text-white">Create User</ButtonDefault>
 			</Link>
 		 </div>
 	  </div>
@@ -14,35 +14,35 @@
 			<TableComponent>
 			   <TableHead>
 				  <TableTr>
-					 <TableTh>Date Submitted</TableTh>
-					 <TableTh>Dates requested</TableTh>
-					 <TableTh>Days requested</TableTh>
-					 <TableTh>Status</TableTh>
+					 <TableTh>Firstname</TableTh>
+					 <TableTh>Lastname</TableTh>
+					 <TableTh>Email</TableTh>
+					 <TableTh>Role</TableTh>
 				  </TableTr>
 			   </TableHead>
 
 			   <TableBody>
-				  <TableTr v-for="(vacation, index) in vacations.data"
-						   :key="vacation.id"
-						   :index="index">
-					 <TableTd>{{ vacation.created_format }}</TableTd>
-					 <TableTd>{{ vacation.date_request }}</TableTd>
-					 <TableTd>{{ vacation.days }}</TableTd>
-					 <TableTd>{{ vacation.status }}</TableTd>
+				  <TableTr v-for="(employer, index) in employers.data"
+						   :key="employer.id"
+						   :index="index" class="hover:bg-gray-300">
+					 <Link :href="route('admin.edit',employer.slug)" class="contents ">
+						<TableTd>{{ employer.firstname }}</TableTd>
+						<TableTd>{{ employer.lastname }}</TableTd>
+						<TableTd>{{ employer.email }}</TableTd>
+						<TableTd>{{ employer.role }}</TableTd>
+					 </Link>
 				  </TableTr>
 			   </TableBody>
 			</TableComponent>
 		 </template>
 	  </SectionCard>
-	  <Pagination class="mt-6" :links="vacations.links" />
+	  <Pagination class="mt-6" :links="employers.links" />
    </section>
-
-
 </template>
 <script>
-import Authenticated from "@/Layouts/Authenticated";
+import Admin from "@/Layouts/Admin";
 
-export default {layout: Authenticated}
+export default {layout: Admin}
 </script>
 
 <script setup>
@@ -57,11 +57,9 @@ import TableTd from "@/Components/Table/TableTd";
 import ButtonDefault from "@/Components/Elements/Buttons/ButtonDefault";
 import Pagination from "@/Components/Pagination";
 
-
 defineProps({
-   "vacations": Object
+   "employers": Object
 })
-
 
 </script>
 

@@ -19,6 +19,7 @@ class UserFactory extends Factory {
         $lastName = $this->faker->lastName();
 
         return [
+            "created_by" => User::where("role", User::ROLE["admin"])->get()->random()->id,
             'firstname' => $firstName,
             'lastname' => $lastName,
             'slug' => (new User())->createSlug($firstName . " " . $lastName),

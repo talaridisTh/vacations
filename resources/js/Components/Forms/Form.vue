@@ -12,15 +12,12 @@
     </form>
 </template>
 
-<script>
-export default {
-    name: "Form",
+<script setup>
+defineProps({
+   label: String
+})
 
-    props: {
-        label: String
-    },
 
-}
 </script>
 
 <style scoped>

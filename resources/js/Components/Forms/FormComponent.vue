@@ -4,8 +4,5 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: "FormComponent"
-    }
+<script setup>
 </script>

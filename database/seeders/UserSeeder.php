@@ -11,17 +11,16 @@ class UserSeeder extends Seeder {
 
     public function run()
     {
-        User::factory()
-            ->create([
-                'firstname' => "admin",
-                'lastname' => "admin",
-                'slug' => "admin",
-                'email' => "admin@gmail.com",
-                'role' => "admin",
-                'password' => Hash::make("password"),
-                'remember_token' => Str::random(10),
-            ]);
 
+        User::create([
+            'firstname' => "admin",
+            'lastname' => "admin",
+            'slug' => "admin",
+            'email' => "admin@gmail.com",
+            'role' => "admin",
+            'password' => Hash::make("password"),
+            'remember_token' => Str::random(10),
+        ]);
         User::factory()
             ->count(10)
             ->hasVacations(3)

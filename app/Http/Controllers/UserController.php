@@ -10,7 +10,7 @@ class UserController extends Controller {
         //
 
         return inertia("Dashboard", [
-            "vacations" => Vacation::whereUserId(auth()->id())->paginate(10),
+            "vacations" => Vacation::whereUserId(auth()->id())->orderBy("created_at","desc")->paginate(10),
         ]);
     }
 

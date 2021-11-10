@@ -19,11 +19,7 @@ class User extends Authenticatable {
      *
      * @var string[]
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -49,10 +45,29 @@ class User extends Authenticatable {
         'admin' => "admin",
     ];
 
-    public function vacations()
+    public function getFullnameAttribute()
     {
-        return $this->hasMany(Vacation::class)->orderBy("created_at","desc");
+        return $this->firstname . " " . $this->lastname;
     }
 
+    public function vacations()
+    {
+        return $this->hasMany(Vacation::class)->orderBy("created_at", "desc");
+    }
+
+    public function supervisor()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function isEmployer()
+    {
+        return $this->hasMany(User::class, 'created_by');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
 }

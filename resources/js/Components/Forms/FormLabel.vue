@@ -4,8 +4,5 @@
     </label>
 </template>
 
-<script>
-    export default {
-        name: "FormLabel"
-    }
+<script setup>
 </script>

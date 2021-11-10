@@ -12,14 +12,15 @@ class VacationRequest extends FormRequest {
         return [
             'vacation_start' => 'required|date|after_or_equal:tomorrow',
             'vacation_end' => 'required|date|after:vacation_start',
-            'reason' => 'required|string'
+            'reason' => 'required|string',
         ];
     }
 
     public function store()
     {
         $this->merge(["user_id" => auth()->id()]);
-        Vacation::create($this->only("vacation_start","vacation_end","reason","user_id"));
+
+        return Vacation::create($this->only("vacation_start", "vacation_end", "reason", "user_id"));
     }
 
     public function authorize(): bool

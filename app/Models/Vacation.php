@@ -10,6 +10,7 @@ class Vacation extends Model {
 
     protected $appends = [
         "created_format",
+        "updated_format",
         "date_request",
         "days",
     ];
@@ -24,6 +25,11 @@ class Vacation extends Model {
     public function getCreatedFormatAttribute($date = null)
     {
         return $this->created_at->format("d-m-Y");
+    }
+
+    public function getUpdatedFormatAttribute($date = null)
+    {
+        return $this->updated_at->format("d-m-Y");
     }
 
     public function getDateRequestAttribute()

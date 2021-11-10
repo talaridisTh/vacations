@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VacationsController;
 use App\Models\Vacation;
@@ -21,13 +22,17 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
 });
-Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
-Route::resource('/vacations', VacationsController::class,)->middleware('auth');
+Route::get('/vacations/verify/{vacation}/{choice}', [VacationsController::class, 'updateConfirm'])->name('verify.confirm');
+Route::group(['middleware' => ["isAdmin"]], function () {
+    Route::resource('/admin', AdminController::class);
 
-Route::group(['middleware' => "auth"], function () {
+});
+Route::group(['middleware' => ["isEmployee"]], function () {
+    Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
+    Route::resource('/vacations', VacationsController::class,)->middleware('auth');
+
 });
 require __DIR__ . '/auth.php';
+//
