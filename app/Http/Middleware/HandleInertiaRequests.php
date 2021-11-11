@@ -36,7 +36,7 @@ class HandleInertiaRequests extends Middleware {
     {
         return array_merge(parent::share($request), [
             'auth' => [
-                "employers" => auth()->user()->isEmployer()?->orderBy("updated_at", "desc")->paginate(10),
+                "employers" => auth()->user()?->isEmployer()?->orderBy("updated_at", "desc")->paginate(10),
                 'user' => $request->user(),
                 'isAdmin' => $request->user()?->isAdmin(),
                 'isEmployee' => $request->user()?->isEmployee(),

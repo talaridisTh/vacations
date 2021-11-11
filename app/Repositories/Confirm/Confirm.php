@@ -5,7 +5,7 @@ namespace App\Repositories\Confirm;
 use App\Models\Vacation;
 use Illuminate\Support\Facades\URL;
 
-class Confirm {
+class Confirm implements ConfirmInterface {
 
     /**
      * @var

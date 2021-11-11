@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SendAdminEvent;
+use App\Events\SendEmployeeEvent;
 use App\Http\Requests\VacationRequest;
 use App\Mail\ConfirmMail;
 use App\Mail\VacationMail;
@@ -49,24 +51,20 @@ class VacationsController extends Controller {
     }
 
     /**
-     * Send email to admin
-     * @param Vacation $vacation
-     */
-    private function sendAdmin(Vacation $vacation): void
-    {
-
-        Mail::to($vacation->employee->supervisor->email)
-            ->send(new VacationMail($vacation));
-
-    }
-
-    /**
      * Send email to employee
      * @param Vacation $vacation
      */
     private function sendEmployee(Vacation $vacation): void
     {
-        Mail::to($vacation->employee->email)->send(new ConfirmMail($vacation));
+        event(new SendEmployeeEvent($vacation));
+    }
+
+    /**
+     * @param mixed $vacation
+     */
+    private function sendAdmin(mixed $vacation): void
+    {
+        event(new SendAdminEvent($vacation));
     }
 
 }
